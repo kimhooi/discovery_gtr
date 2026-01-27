@@ -73,10 +73,15 @@ jobs:
         run: python discovery_gtr/pipeline/gtr_to_s3.py
       - name: Commit and push changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Automated update from workflow run for ${{ matrix.endpoint }}" || echo "No changes to commit"
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A outputs/
+          if git diff --cached --quiet; then
+            echo "No changes in outputs/ to commit"
+            exit 0
+          fi
+          git commit -m "Update GtR data" --no-verify
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
