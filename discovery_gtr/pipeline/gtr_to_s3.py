@@ -305,10 +305,10 @@ def gtr_to_s3(endpoint: str) -> None:
         )
 
     # Upload all data to S3 using s3.put_object()
-    upload_data_to_s3(all_data, S3, MY_BUCKET_NAME, s3_key)
+    # upload_data_to_s3(all_data, S3, MY_BUCKET_NAME, s3_key)
 
     # Save all data to a file locally as JSON
-    # save_data_locally(all_data, f"{endpoint}.json")
+    save_data_locally(all_data, f"{endpoint}.json")
 
 
 def local_wrapper():
