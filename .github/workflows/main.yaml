@@ -71,3 +71,12 @@ jobs:
           DESTINATION_S3_PATH: ${{ secrets.DESTINATION_S3_PATH }}
           ENDPOINT: ${{ matrix.endpoint }}
         run: python discovery_gtr/pipeline/gtr_to_s3.py
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Automated update from workflow run for ${{ matrix.endpoint }}" || echo "No changes to commit"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
