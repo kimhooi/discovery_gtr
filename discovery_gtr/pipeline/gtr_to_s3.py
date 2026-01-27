@@ -258,7 +258,8 @@ def gtr_to_s3(endpoint: str) -> None:
 
     # Define the maximum number of pages to append
     # Change this to fetch more or fewer pages for testing
-    max_pages_to_append = total_pages
+    # max_pages_to_append = total_pages
+    max_pages_to_append = 1
 
     # Initialize the previously logged percentage
     prev_percentage = None
@@ -284,7 +285,7 @@ def gtr_to_s3(endpoint: str) -> None:
         extracted_data = []
 
         # Loop through the response_data
-        for item in response_data:
+        for item in response_data.get(endpoint[:-1]):
             # Initialize an empty dictionary to store the extracted data for each item
             extracted_item = {}
 
